@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/Cazz-Karo-E-Commerce-Website/static/css/main.2d49b4de.css",
+    "main.js": "/Cazz-Karo-E-Commerce-Website/static/js/main.8118bc1e.js",
+    "static/js/787.965c4c5e.chunk.js": "/Cazz-Karo-E-Commerce-Website/static/js/787.965c4c5e.chunk.js",
+    "index.html": "/Cazz-Karo-E-Commerce-Website/index.html",
+    "main.2d49b4de.css.map": "/Cazz-Karo-E-Commerce-Website/static/css/main.2d49b4de.css.map",
+    "main.8118bc1e.js.map": "/Cazz-Karo-E-Commerce-Website/static/js/main.8118bc1e.js.map",
+    "787.965c4c5e.chunk.js.map": "/Cazz-Karo-E-Commerce-Website/static/js/787.965c4c5e.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.2d49b4de.css",
+    "static/js/main.8118bc1e.js"
+  ]
+}
