@@ -2,8 +2,11 @@ import { Dialog, Popover, Tab, Transition } from '@headlessui/react'
 import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Avatar, Button, Menu, MenuItem } from '@mui/material'
 import { deepPurple } from '@mui/material/colors'
-import { Fragment, useState } from 'react'
-import { useNavigate } from 'react-router-dom/dist'
+import { Fragment, useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useLocation, useNavigate } from 'react-router-dom/dist'
+import { getUser, logout } from '../../../State/Auth/Action'
+import AuthModal from '../../Auth/AuthModal'
 import { navigation } from './navigationData'
 
 function classNames(...classes) {
@@ -18,6 +21,9 @@ export default function Navigation() {
   const [anchorEl, setAnchorEl] = useState(null);
   const openUserMenu = Boolean(anchorEl);
   const jwt = localStorage.getItem("jwt");
+  const {auth} = useSelector(store => store);
+  const dispatch = useDispatch();
+  const location = useLocation()
 
   const handleUserClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -34,9 +40,30 @@ export default function Navigation() {
   };
 
   const handleCategoryClick = (category, section, item, onClose) => {
-    navigate(`/${category.id}/${section.id}/${item.id}`);
+    navigate(`/${category._id}/${section._id}/${item._id}`);
     onClose();
   };
+
+  useEffect(() => {
+    if(jwt){
+        dispatch(getUser(jwt))
+    }
+  },[jwt,auth.jwt])
+
+  useEffect(() => {
+    
+    if(auth.user){
+      handleClose()
+    }
+    if(location.pathname === "/login" || location.pathname === "/register"){
+      navigate(-1)
+    }
+  },[auth.user])
+
+  const handleLogout = () => {
+    dispatch(logout())
+    handleCloseUserMenu()
+  }
 
   return (
     <div className="bg-white pb-2">
@@ -118,12 +145,12 @@ export default function Navigation() {
                         </div>
                         {category.sections.map((section) => (
                           <div key={section.name}>
-                            <p id={`${category.id}-${section.id}-heading-mobile`} className="font-medium text-gray-900">
+                            <p id={`${category._id}-${section._id}-heading-mobile`} className="font-medium text-gray-900">
                               {section.name}
                             </p>
                             <ul
                               role="list"
-                              aria-labelledby={`${category.id}-${section.id}-heading-mobile`}
+                              aria-labelledby={`${category._id}-${section._id}-heading-mobile`}
                               className="mt-6 flex flex-col space-y-6"
                             >
                               {section.items.map((item) => (
@@ -316,7 +343,7 @@ export default function Navigation() {
 
               <div className="ml-auto flex items-center">
                 <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                  {true ? (
+                  {auth.user?.firstName ? (
                     <div>
                       <Avatar
                         className='text-white'
@@ -330,7 +357,7 @@ export default function Navigation() {
                           cursor: "pointer",
                         }}
                         >
-                          R
+                          {auth.user?.firstName[0].toUpperCase()}
                       </Avatar>
                       <Menu
                         id='basic-menu'
@@ -349,13 +376,13 @@ export default function Navigation() {
                           MyOrders
                           </MenuItem>
                           
-                          <MenuItem>
+                          <MenuItem onClick={handleLogout}>
                           Logout
                           </MenuItem>
                       </Menu>
                     </div>
                   ) : (
-                    <Button 
+                    <Button
                     onClick={handleOpen}
                     className='text-sm font-medium text-gray-700 hover:text-gray-800'>
                       Signin
@@ -395,6 +422,8 @@ export default function Navigation() {
           </div>
         </nav>
       </header>
+
+      <AuthModal handleClose={handleClose} open={openAuthModal} />
     </div>
   )
 }

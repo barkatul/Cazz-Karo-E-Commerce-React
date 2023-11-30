@@ -7,7 +7,7 @@ const ProductCard = ({product}) => {
     const navigate = useNavigate();
 
     return (
-        <div onClick={() => navigate(`/product/${5}`)}>
+        <div onClick={() => navigate(`/product/${product?._id}`)}>
         <Card className="productCard w-[15rem] h-[30rem] m-3 transition-all cursor-pointer">
             <div className="h-[70%]">
                 <img className="h-full w-full object-cover object-left-top"

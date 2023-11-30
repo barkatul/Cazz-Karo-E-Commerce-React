@@ -6,6 +6,7 @@ import Checkout from "../customer/component/Checkout/Checkout";
 import Footer from "../customer/component/Footer/footer";
 import Order from "../customer/component/Order/Order";
 import OrderDetails from "../customer/component/Order/OrderDetails";
+import PaymentSuccess from "../customer/component/Payment/PaymentSuccess";
 import Product from "../customer/component/Product/Product";
 import ProductDetails from "../customer/component/ProductDetails/ProductDetails";
 import Navigation from "../customer/component/navigation/Navigation";
@@ -19,6 +20,8 @@ const CustomerRoutes = () => {
             </div>
 
             <Routes>
+                <Route path="/login" element={<HomePage/>}></Route>
+                <Route path="/register" element={<HomePage/>}></Route>
                 <Route path="/" element={<HomePage/>}></Route>
                 <Route path="/cart" element={<Cart/>}></Route>
                 <Route path="/checkout" element={<Checkout/>}></Route>
@@ -26,6 +29,7 @@ const CustomerRoutes = () => {
                 <Route path="/product/:productId" element={<ProductDetails/>}></Route>
                 <Route path="/account/order" element={<Order></Order>}></Route>
                 <Route path="/account/order/:orderId" element={<OrderDetails></OrderDetails>}></Route>
+                <Route path="/payment/:orderId" element={<PaymentSuccess/>}></Route>
 
             </Routes>
 
