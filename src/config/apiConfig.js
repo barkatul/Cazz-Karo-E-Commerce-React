@@ -1,6 +1,9 @@
-import axios from "axios"
+import axios from "axios";
 
-export const API_BASE_URL = "http://localhost:5454"
+export const DEPLOYED='https://colorful-mittens-bull.cyclic.app/'
+export const LOCALHOST = "http://localhost:5454"
+
+export const API_BASE_URL = DEPLOYED;
 
 const jwt = localStorage.getItem("jwt")
 
